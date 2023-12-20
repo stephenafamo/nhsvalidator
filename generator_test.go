@@ -7,7 +7,7 @@ import "testing"
 func TestGenerator(t *testing.T) {
 	cycles := 1000
 	minimum := 900
-	m := make(map[int]bool)
+	m := make(map[uint64]bool)
 	for i := 0; i < cycles; i++ {
 		num, err := Generate()
 		if err != nil {

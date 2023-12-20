@@ -36,20 +36,16 @@ func TestValidator(t *testing.T) {
 		// Cycle through all the other invalid digits
 		for i := 1; i <= 9; i++ {
 			newLastDigit := (correct + i) % 10
-			expectedErr := ErrWrongCheckDigit{
-				Expected: correct,
-				Actual:   newLastDigit,
-			}
 
 			num2 := num[:9] + strconv.Itoa(newLastDigit)
 			err := Validate2(num2)
 
 			if !errors.As(err, &expErr) ||
-				expErr.Expected != correct ||
-				expErr.Actual != newLastDigit {
+				expErr.Expected != uint8(correct) ||
+				expErr.Actual != uint8(newLastDigit) {
 				t.Errorf(
 					"%q should have wrong check digit\nexpected: %v\ngot: %v",
-					num2, expectedErr, err,
+					num2, newLastDigit, expErr.Actual,
 				)
 			}
 		}
@@ -58,7 +54,7 @@ func TestValidator(t *testing.T) {
 
 func TestLargeNumber(t *testing.T) {
 	for i := 0; i < 100; i++ {
-		num := rand.Int() + 9999999999
+		num := rand.Uint64() + 9999999999
 		err := Validate(num)
 		if !errors.Is(err, ErrNumberTooLarge) {
 			t.Errorf("%d should not be valid but passed validation", num)

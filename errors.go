@@ -3,8 +3,8 @@ package nhsvalidator
 import "fmt"
 
 type ErrWrongCheckDigit struct {
-	Expected int
-	Actual   int
+	Expected uint8
+	Actual   uint8
 }
 
 func (e ErrWrongCheckDigit) Error() string {
