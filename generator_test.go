@@ -5,8 +5,8 @@ import "testing"
 // Test 100 generations
 // maintain a map to make sure no duplicates are generated
 func TestGenerator(t *testing.T) {
-	cycles := 1000
-	minimum := 900
+	cycles := 10000
+	minimum := 9000
 	m := make(map[uint64]bool)
 	for i := 0; i < cycles; i++ {
 		num, err := Generate()
